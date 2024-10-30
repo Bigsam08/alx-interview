@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' A validUTF* function to check if int and the type of byte '''
+''' A validUTF8 function to check if int and the type of byte '''
 
 
 def validUTF8(data):
@@ -10,7 +10,7 @@ def validUTF8(data):
         if next > 0:
             next -= 1
             continue
-        if type(data[i]) is not int or data[i] < 0 or data[i] > 0x10ffff:
+        if type(data[i]) != int or data[i] < 0 or data[i] > 0x10ffff:
             return False
         elif data[i] <= 0x7f:
             next = 0
