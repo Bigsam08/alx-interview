@@ -11,29 +11,20 @@ def makeChange(coins, total):
     '''
     if total <= 0:
         return 0
-    if coins == [] or coins is None:
+    if not coins:
         return -1
     try:
-        coinIdx = coins.index(total)
-        return 1
+        if total in coins:
+            return 1
     except ValueError:
         pass
 
     coins.sort(reverse=True)
     count = 0
-    for i in coins:
-        if total % 1 == 0:
-            count += int(total / i)
+    for coin in coins:
+        while total >= coin:
+            total -= coin
+            count += 1
+        if total == 0:
             return count
-        if total - i >= 0:
-            if int(total / i) > 1:
-                count += int(total / i)
-                total = total % i
-            else:
-                count = count + 1
-                total = total - 1
-                if total == 0:
-                    break
-    if total > 0:
-        return -1
-    return count
+    return -1 if total > 0 else count
